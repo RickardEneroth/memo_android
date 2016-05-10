@@ -1,7 +1,8 @@
 <resources>
 
-    //URL's
     <string name="app_name">Memo</string>
+
+    //URL's
     <string name="url_getall">https://immense-scrubland-69667.herokuapp.com/memo/getall?userId=</string>
     <string name="url_delall">https://immense-scrubland-69667.herokuapp.com/memo/deleteall?userId=</string>
     <string name="url_add">https://immense-scrubland-69667.herokuapp.com/memo/add?userId=</string>

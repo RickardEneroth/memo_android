@@ -33,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_text_getall_memos"
+        android:textSize="5pt"
         android:id="@+id/button_1"
         android:layout_marginTop="63dp"
         android:layout_below="@+id/editText_memolist"
@@ -52,16 +53,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_text_add_memo"
+        android:textSize="5pt"
         android:id="@+id/button_2"
-        android:layout_alignBottom="@+id/button_1"
-        android:layout_toRightOf="@+id/button_1"
-        android:layout_toEndOf="@+id/button_1" />
+        android:layout_alignTop="@+id/button_1"
+        android:layout_toRightOf="@+id/button_3"
+        android:layout_toEndOf="@+id/button_3" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_text_delete_memo"
+        android:textSize="5pt"
+        android:textColor="#ff0000"
         android:id="@+id/button_3"
+        android:layout_marginTop="35dp"
         android:layout_below="@+id/button_1"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -82,5 +87,14 @@
        android:layout_below="@+id/textView_namn"
        android:layout_alignLeft="@+id/editText_namn"
        android:layout_alignStart="@+id/editText_namn" />
+
+    <ImageView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:id="@+id/imageView"
+        android:layout_alignTop="@+id/textView_namn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/memo_image" />
 
 </RelativeLayout>

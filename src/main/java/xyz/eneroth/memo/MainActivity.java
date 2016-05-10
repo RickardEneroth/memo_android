@@ -21,10 +21,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         setContentView(R.layout.activity_main);
 
+        //getAllMemos
         final Button button1 = (Button)findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -44,12 +47,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button button3 = (Button)findViewById(R.id.button_3);
-        button3.setOnClickListener(new View.OnClickListener() {
+        //addMemo
+        Button button2 = (Button)findViewById(R.id.button_2);
+        button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText namn = (EditText)findViewById(R.id.editText_namn);
+                EditText memo = (EditText)findViewById(R.id.editText_memo);
                 try {
-                    deleteAllMemos(namn.getText().toString());
+                    addMemo(namn.getText().toString(), memo.getText().toString());
                     namn.setText("");
                     button1.performClick();
                 } catch (Exception e) {
@@ -58,13 +63,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button button2 = (Button)findViewById(R.id.button_2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        //deleteAllMemos
+        Button button3 = (Button)findViewById(R.id.button_3);
+        button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText namn = (EditText)findViewById(R.id.editText_namn);
-                EditText memo = (EditText)findViewById(R.id.editText_memo);
                 try {
-                    addMemo(namn.getText().toString(), memo.getText().toString());
+                    deleteAllMemos(namn.getText().toString());
                     namn.setText("");
                     button1.performClick();
                 } catch (Exception e) {
