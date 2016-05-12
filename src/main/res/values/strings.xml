@@ -4,16 +4,17 @@
 
     //URL's
     <string name="url_getall">https://immense-scrubland-69667.herokuapp.com/memo/getall?userId=</string>
-    <string name="url_delall">https://immense-scrubland-69667.herokuapp.com/memo/deleteall?userId=</string>
+    <string name="url_delete">https://immense-scrubland-69667.herokuapp.com/memo/delete?id=</string>
     <string name="url_add">https://immense-scrubland-69667.herokuapp.com/memo/add?userId=</string>
 
     //Button texts
-    <string name="button_text_delete_memo">Ta bort alla memos</string>
+    <string name="button_text_delete_memo">Ta bort memo med id=x</string>
     <string name="button_text_add_memo">Skapa nytt memo</string>
     <string name="button_text_getall_memos">Hämta alla memos</string>
 
     //Promt texts
     <string name="prompt_name">Namn</string>
     <string name="prompt_memo">Memo</string>
+    <string name="prompt_id">Id</string>
 
 </resources>

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     String str = "";
                     for (int i=0;i<jSONArray.length();i++) {
                         JSONObject JSONObject = jSONArray.getJSONObject(i);
-                        str += (String) JSONObject.get("userId") + ", " + (String) JSONObject.get("memo") + "\n";
+                        str += (String) JSONObject.get("userId") + ", " + (String) JSONObject.get("memo") + ", " + (String) JSONObject.get("id") + "\n";
                     }
                     editText.setText(str);
                 } catch (Exception e) {
@@ -63,14 +63,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //deleteAllMemos
+        //deleteMemo
         Button button3 = (Button)findViewById(R.id.button_3);
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText namn = (EditText)findViewById(R.id.editText_namn);
+                EditText id = (EditText)findViewById(R.id.editText_id);
+                EditText memo = (EditText)findViewById(R.id.editText_memo);
                 try {
-                    deleteAllMemos(namn.getText().toString());
+                    deleteMemo(id.getText().toString());
                     namn.setText("");
+                    id.setText("");
+                    memo.setText("");
                     button1.performClick();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -104,11 +108,11 @@ public class MainActivity extends AppCompatActivity {
         return jsonObject;
     }
 
-    public void deleteAllMemos(String userId) throws Exception {
-        String url = getString(R.string.url_delall) + userId;
+    public void deleteMemo(String id) throws Exception {
+        String url = getString(R.string.url_delete) + id;
         URL obj = new URL(url);
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
+        con.setRequestMethod("DELETE");
         int responseCode = con.getResponseCode();
         System.out.println("Sending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
@@ -118,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
         String url = getString(R.string.url_add) + userId + "&memo=" + memo;
         URL obj = new URL(url);
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
+        con.setRequestMethod("POST");
         int responseCode = con.getResponseCode();
         System.out.println("Sending 'GET' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
