@@ -8,13 +8,12 @@
     <string name="url_add">https://immense-scrubland-69667.herokuapp.com/memo/add?userId=</string>
 
     //Button texts
-    <string name="button_text_delete_memo">Ta bort memo med id=x</string>
-    <string name="button_text_add_memo">Skapa nytt memo</string>
-    <string name="button_text_getall_memos">Hämta alla memos</string>
+    <string name="button_text_add_memo">Skapa memo</string>
+    <string name="button_text_getall_memos">Hämta memos</string>
+    <string name="button_text_delete_memo">Ta bort</string>
 
     //Promt texts
     <string name="prompt_name">Namn</string>
     <string name="prompt_memo">Memo</string>
-    <string name="prompt_id">Id</string>
 
 </resources>

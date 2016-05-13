@@ -4,8 +4,12 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,10 +17,13 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
+
+    Button button1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +34,34 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        ListView listView = (ListView) findViewById(R.id.listView2);
+
+        final ArrayList<String> list = new ArrayList<String>();
+
+        final ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
+
+        listView.setAdapter(itemsAdapter);
+
+        ArrayList<MemoRow> arrayOfUsers = new ArrayList<MemoRow>();
+        final MemoAdapter adapter = new MemoAdapter(this, arrayOfUsers);
+        ListView listView2 = (ListView) findViewById(R.id.listView2);
+        listView2.setAdapter(adapter);
+
         //getAllMemos
-        final Button button1 = (Button)findViewById(R.id.button_1);
+        button1 = (Button) findViewById(R.id.button);
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText editText = (EditText)findViewById(R.id.editText_memolist);
-                EditText namn = (EditText)findViewById(R.id.editText_namn);
+                EditText namn = (EditText) findViewById(R.id.editText);
                 try {
                     JSONArray jSONArray = getAllMemos(namn.getText().toString()).getJSONArray("memos");
-                    String str = "";
-                    for (int i=0;i<jSONArray.length();i++) {
+                    adapter.clear();
+                    for (int i = 0; i < jSONArray.length(); i++) {
                         JSONObject JSONObject = jSONArray.getJSONObject(i);
-                        str += (String) JSONObject.get("userId") + ", " + (String) JSONObject.get("memo") + ", " + (String) JSONObject.get("id") + "\n";
+                        MemoRow memoRow = new MemoRow(" " + (String) JSONObject.get("userId") + " ", (String) JSONObject.get("memo") + " ", (String) JSONObject.get("id"));
+                        adapter.add(memoRow);
                     }
-                    editText.setText(str);
+                    itemsAdapter.notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -48,39 +69,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //addMemo
-        Button button2 = (Button)findViewById(R.id.button_2);
+        Button button2 = (Button) findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText namn = (EditText)findViewById(R.id.editText_namn);
-                EditText memo = (EditText)findViewById(R.id.editText_memo);
                 try {
-                    addMemo(namn.getText().toString(), memo.getText().toString());
-                    namn.setText("");
-                    button1.performClick();
+                    EditText namn = (EditText) findViewById(R.id.editText);
+                    EditText memo = (EditText) findViewById(R.id.editText2);
+                    try {
+                        addMemo(namn.getText().toString(), memo.getText().toString());
+                        namn.setText("");
+                        button1.performClick();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
 
-        //deleteMemo
-        Button button3 = (Button)findViewById(R.id.button_3);
-        button3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                EditText namn = (EditText)findViewById(R.id.editText_namn);
-                EditText id = (EditText)findViewById(R.id.editText_id);
-                EditText memo = (EditText)findViewById(R.id.editText_memo);
-                try {
-                    deleteMemo(id.getText().toString());
-                    namn.setText("");
-                    id.setText("");
-                    memo.setText("");
-                    button1.performClick();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    public void removeMemo(View v) {
+        LinearLayout vwParentRow = (LinearLayout) v.getParent();
+        TextView id = (TextView) vwParentRow.getChildAt(2);
+        Button btnChild = (Button) vwParentRow.getChildAt(3);
+        try {
+            deleteMemo(id.getText().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        button1.performClick();
+        vwParentRow.refreshDrawableState();
     }
 
     public JSONObject getAllMemos(String userId) throws Exception {
@@ -114,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
         con.setRequestMethod("DELETE");
         int responseCode = con.getResponseCode();
-        System.out.println("Sending 'GET' request to URL : " + url);
+        System.out.println("Sending 'DELETE' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
     }
 
@@ -124,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
         con.setRequestMethod("POST");
         int responseCode = con.getResponseCode();
-        System.out.println("Sending 'GET' request to URL : " + url);
+        System.out.println("Sending 'POST' request to URL : " + url);
         System.out.println("Response Code : " + responseCode);
     }
 }
