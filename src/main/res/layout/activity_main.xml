@@ -27,7 +27,7 @@
             android:layout_marginTop="27dp" />
 
         <EditText
-            android:layout_width="350px"
+            android:layout_width="700px"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
             android:background="#ffffff"
@@ -48,7 +48,7 @@
             android:layout_marginTop="21dp" />
 
         <EditText
-            android:layout_width="350px"
+            android:layout_width="700px"
             android:layout_height="wrap_content"
             android:id="@+id/editText2"
             android:background="#ffffff"
@@ -64,6 +64,8 @@
             android:layout_height="760px"
             android:id="@+id/listView2"
             android:layout_marginTop="64dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_below="@+id/imageView2"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -75,7 +77,8 @@
             android:id="@+id/button"
             android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2" />
+            android:layout_alignStart="@+id/textView2"
+            android:focusable="true" />
 
         <Button
             android:layout_width="wrap_content"
@@ -90,15 +93,14 @@
             android:layout_marginTop="68dp" />
 
         <ImageView
-            android:layout_width="160px"
-            android:layout_height="160px"
+            android:layout_width="290px"
+            android:layout_height="290px"
             android:id="@+id/imageView2"
             android:src="@drawable/memo_image"
-            android:layout_marginRight="21dp"
-            android:layout_marginEnd="21dp"
             android:layout_alignTop="@+id/editText"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignRight="@+id/listView2"
+            android:layout_alignEnd="@+id/listView2" />
+
 
     </RelativeLayout>
 </ScrollView>

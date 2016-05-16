@@ -87,6 +87,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        button1.setFocusable(true);
+        button1.setFocusableInTouchMode(true);
+        button1.requestFocus();
     }
 
     public void removeMemo(View v) {
