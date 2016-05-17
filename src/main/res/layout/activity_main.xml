@@ -6,12 +6,12 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
     android:layout_marginBottom="0dp"
-    android:background="#00a300"
+    android:background="@color/colorGrassGreen"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="2100px">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:layout_width="700px"
             android:layout_height="wrap_content"
             android:id="@+id/editText"
-            android:background="#ffffff"
+            android:background="@color/colorWhite"
             android:maxLines="1"
             android:layout_alignTop="@+id/textView"
             android:layout_alignLeft="@+id/editText2"
@@ -51,7 +51,7 @@
             android:layout_width="700px"
             android:layout_height="wrap_content"
             android:id="@+id/editText2"
-            android:background="#ffffff"
+            android:background="@color/colorWhite"
             android:maxLines="1"
             android:layout_alignTop="@+id/textView2"
             android:layout_toRightOf="@+id/textView2"
@@ -61,9 +61,9 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="760px"
+            android:layout_height="1200px"
             android:id="@+id/listView2"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="34dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_below="@+id/imageView2"
@@ -75,10 +75,11 @@
             android:layout_height="wrap_content"
             android:text="@string/button_text_getall_memos"
             android:id="@+id/button"
-            android:layout_alignParentBottom="true"
+            android:focusable="true"
+            android:layout_alignBaseline="@+id/button2"
+            android:layout_alignBottom="@+id/button2"
             android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
-            android:focusable="true" />
+            android:layout_alignStart="@+id/textView2" />
 
         <Button
             android:layout_width="wrap_content"
@@ -90,7 +91,7 @@
             android:layout_below="@+id/listView2"
             android:layout_alignRight="@+id/imageView2"
             android:layout_alignEnd="@+id/imageView2"
-            android:layout_marginTop="68dp" />
+            android:layout_marginTop="5dp" />
 
         <ImageView
             android:layout_width="290px"
