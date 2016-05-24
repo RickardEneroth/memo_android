@@ -14,16 +14,12 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
     Button button1;
+    final RestServices restServices = new RestServices();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        ListView listView = (ListView) findViewById(R.id.listView2);
+        ListView listView = (ListView) findViewById(R.id.listView);
 
         final ArrayList<String> list = new ArrayList<String>();
 
@@ -45,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<MemoRow> arrayOfUsers = new ArrayList<MemoRow>();
         final MemoAdapter adapter = new MemoAdapter(this, arrayOfUsers);
-        ListView listView2 = (ListView) findViewById(R.id.listView2);
+        ListView listView2 = (ListView) findViewById(R.id.listView);
         listView2.setAdapter(adapter);
 
         //getAllMemos
@@ -54,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText namn = (EditText) findViewById(R.id.editText);
                 try {
-                    JSONArray jSONArray = getAllMemos(namn.getText().toString()).getJSONArray("memos");
+                    JSONArray jSONArray = restServices.getAllMemos(namn.getText().toString(), getString(R.string.url_getall)).getJSONArray("memos");
                     adapter.clear();
                     for (int i = 0; i < jSONArray.length(); i++) {
                         JSONObject JSONObject = jSONArray.getJSONObject(i);
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     EditText namn = (EditText) findViewById(R.id.editText);
                     EditText memo = (EditText) findViewById(R.id.editText2);
                     try {
-                        addMemo(namn.getText().toString(), memo.getText().toString());
+                        restServices.addMemo(namn.getText().toString(), memo.getText().toString(), getString(R.string.url_add));
                         namn.setText("");
                         button1.performClick();
                     } catch (Exception e) {
@@ -93,61 +89,16 @@ public class MainActivity extends AppCompatActivity {
         button1.requestFocus();
     }
 
+    //removeMemo
     public void removeMemo(View v) {
-        LinearLayout vwParentRow = (LinearLayout) v.getParent();
-        TextView id = (TextView) vwParentRow.getChildAt(2);
-        Button btnChild = (Button) vwParentRow.getChildAt(3);
+        LinearLayout parentRow = (LinearLayout) v.getParent();
+        TextView id = (TextView) parentRow.getChildAt(2);
         try {
-            deleteMemo(id.getText().toString());
+            restServices.deleteMemo(id.getText().toString(), getString(R.string.url_delete));
         } catch (Exception e) {
             e.printStackTrace();
         }
         button1.performClick();
-        vwParentRow.refreshDrawableState();
-    }
-
-    public JSONObject getAllMemos(String userId) throws Exception {
-        String url = getString(R.string.url_getall) + userId;
-        URL obj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        int responseCode = con.getResponseCode();
-        System.out.println("Sending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        System.out.println(response.toString());
-
-        JSONObject jsonObject = new JSONObject(response.toString());
-        return jsonObject;
-    }
-
-    public void deleteMemo(String id) throws Exception {
-        String url = getString(R.string.url_delete) + id;
-        URL obj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        con.setRequestMethod("DELETE");
-        int responseCode = con.getResponseCode();
-        System.out.println("Sending 'DELETE' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-    }
-
-    public void addMemo(String userId, String memo) throws Exception {
-        String url = getString(R.string.url_add) + userId + "&memo=" + memo;
-        URL obj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        int responseCode = con.getResponseCode();
-        System.out.println("Sending 'POST' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        parentRow.refreshDrawableState();
     }
 }

@@ -62,7 +62,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="1200px"
-            android:id="@+id/listView2"
+            android:id="@+id/listView"
             android:layout_marginTop="34dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -88,7 +88,7 @@
             android:id="@+id/button2"
             android:layout_marginRight="30dp"
             android:layout_marginEnd="30dp"
-            android:layout_below="@+id/listView2"
+            android:layout_below="@+id/listView"
             android:layout_alignRight="@+id/imageView2"
             android:layout_alignEnd="@+id/imageView2"
             android:layout_marginTop="5dp" />
@@ -99,9 +99,8 @@
             android:id="@+id/imageView2"
             android:src="@drawable/memo_image"
             android:layout_alignTop="@+id/editText"
-            android:layout_alignRight="@+id/listView2"
-            android:layout_alignEnd="@+id/listView2" />
-
+            android:layout_alignRight="@+id/listView"
+            android:layout_alignEnd="@+id/listView" />
 
     </RelativeLayout>
 </ScrollView>
